@@ -5,16 +5,16 @@
 let filters = require('./../../assets/data/filters.json');
 
 import {ViewChild, Component, ChangeDetectorRef, ElementRef} from "@angular/core";
-import {CanvasService} from "../service/canvasService";
+import {CanvasService} from "../service/canvas.service";
 import {remote, ipcRenderer} from "electron";
 import {writeFile} from "fs";
-import {Thumbnail} from "./thumbnail";
+import {Thumbnail} from "./thumbnail.component";
 let {dialog} = remote;
 
 @Component({
   selector: 'app',
-  template: require('./app.html'),
-  styles: [require('./app.css')],
+  template: require('./app.component.html'),
+  styles: [require('./app.component.css')],
   providers: [CanvasService],
   directives: [Thumbnail]
 })

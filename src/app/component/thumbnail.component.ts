@@ -2,7 +2,7 @@
  * Created by Tony Wang on 8/22/16.
  */
 import {ViewChild, Input, Component, ElementRef} from "@angular/core";
-import {CanvasService} from "../service/canvasService";
+import {CanvasService} from "../service/canvas.service";
 @Component({
   selector: '[thumbnail]',
   template: `<canvas #childCanvas></canvas>`,
