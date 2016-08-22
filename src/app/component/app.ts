@@ -1,55 +1,15 @@
-let filters = require('./../assets/data/filters.json');
+/**
+ * Created by Tony Wang on 8/22/16.
+ */
 
-import {bootstrap} from "@angular/platform-browser-dynamic";
-import {ViewChild, Input, Component, ChangeDetectorRef, ElementRef} from "@angular/core";
-import {CanvasService} from "./canvasService";
+let filters = require('./../../assets/data/filters.json');
+
+import {ViewChild, Component, ChangeDetectorRef, ElementRef} from "@angular/core";
+import {CanvasService} from "../service/canvasService";
 import {remote, ipcRenderer} from "electron";
 import {writeFile} from "fs";
-
+import {Thumbnail} from "./thumbnail";
 let {dialog} = remote;
-
-@Component({
-  selector: '[thumbnail]',
-  template: `<canvas #childCanvas></canvas>`,
-  providers: [CanvasService],
-  styles: [`
-    img, canvas {
-      width: 150px;
-    }
-  `]
-})
-
-class Thumbnail {
-  @Input() filter:string = '';
-  @Input() image:HTMLImageElement;
-  @ViewChild('childCanvas') childCanvas:ElementRef;
-
-  constructor(private _cs:CanvasService) {
-  };
-
-  ngAfterViewInit() {
-    if (this.image && this.childCanvas) {
-      this.initCanvas();
-    }
-  }
-
-  ngOnChanges() {
-    if (this.image && this.childCanvas) {
-      this.initCanvas();
-    }
-  }
-
-  initCanvas() {
-    this._cs.initCanvas(this.childCanvas.nativeElement, this.image);
-
-    let filterName = this.filter.toLowerCase();
-
-    if (this._cs[filterName])
-      this._cs[filterName]();
-    else
-      this._cs.resetCanvas();
-  }
-}
 
 @Component({
   selector: 'app',
@@ -59,8 +19,9 @@ class Thumbnail {
   directives: [Thumbnail]
 })
 
-export class App {
-  @ViewChild('canvas') canvas:ElementRef;
+export class AppComponent {
+  @ViewChild('canvas')
+  canvas:ElementRef;
 
   imageElement:HTMLImageElement;
   filters:Array<Object> = filters;
@@ -174,5 +135,3 @@ export class App {
     this._cd.detectChanges();
   }
 }
-
-bootstrap(App);

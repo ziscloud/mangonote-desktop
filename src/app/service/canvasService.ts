@@ -1,5 +1,7 @@
 import {nativeImage} from "electron";
+import {Injectable} from "@angular/core";
 
+@Injectable()
 class CanvasService {
   context:CanvasRenderingContext2D;
   original:ImageData;
